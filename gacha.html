@@ -4,11 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>シャー芯ガチャ | 日本シャー芯協会</title>
-
 <style>
-
-/* ================= BASE ================= */
-
 *{
     margin:0;
     padding:0;
@@ -19,9 +15,11 @@
 body{
     background:#f5f5f5;
     color:#111;
+    overflow-x:hidden;
+    padding-top: 80px;
 }
 
-/* 背景グリッド */
+/* 背景 */
 body::before{
     content:"";
     position:fixed;
@@ -33,19 +31,18 @@ body::before{
     z-index:-1;
 }
 
-/* ================= HEADER（ここが主役） ================= */
-
+/* HEADER & NAVIGATION */
 header{
     position:fixed;
     top:0;
-    left:0;
     width:100%;
-    padding:18px 5%;
+    padding:0 5%;
+    height:80px;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    background:rgba(255,255,255,0.85);
     backdrop-filter:blur(10px);
+    background:rgba(255,255,255,0.85);
     border-bottom:1px solid rgba(0,0,0,0.08);
     z-index:999;
 }
@@ -53,71 +50,78 @@ header{
 .logo{
     font-size:24px;
     font-weight:bold;
-    letter-spacing:4px;
+    letter-spacing:3px;
+    white-space: nowrap;
 }
 
 .logo span{
     color:#d10000;
 }
 
-/* ================= BUTTON ================= */
-
-.buttons{
+/* ナビゲーションタブ */
+.nav-tabs{
     display:flex;
     gap:10px;
-    flex-wrap:wrap;
+    height:100%;
+    align-items:center;
 }
 
-.btn{
-    padding:12px 22px;
+.tab-btn{
+    padding:10px 18px;
     border:none;
-    border-radius:12px;
+    background:transparent;
+    font-size:15px;
+    font-weight:bold;
+    color:#555;
     cursor:pointer;
+    border-radius:8px;
     transition:.2s;
-    font-size:14px;
-    letter-spacing:2px;
+    letter-spacing:1px;
 }
 
-.btn:hover{
-    transform:translateY(-3px);
-}
-
-/* 役割別カラー */
-.normal{
-    background:#111;
-    color:#fff;
-}
-
-.special{
-    background:#d10000;
-    color:#fff;
-}
-
-.oracle{
-    background:#ffcc00;
+.tab-btn:hover{
+    background:rgba(0,0,0,0.05);
     color:#111;
 }
 
-/* ================= MAIN ================= */
+.tab-btn.active{
+    background:#111;
+    color:white;
+}
 
+/* MAIN */
 .main{
-    padding:100px 20px 80px;
+    min-height:calc(100vh - 80px);
     display:flex;
     justify-content:center;
+    align-items:flex-start;
+    padding:40px 20px 80px;
 }
 
 .gacha-box{
-    width:min(1100px,100%);
+    width:min(1000px,100%);
     background:white;
-    padding:50px;
+    border:1px solid rgba(0,0,0,0.08);
+    padding:50px 40px;
     border-radius:20px;
-    box-shadow:0 15px 40px rgba(0,0,0,0.08);
+    box-shadow:0 15px 50px rgba(0,0,0,0.06);
 }
 
+/* セクション表示切り替え */
+.content-section{
+    display:none;
+}
+
+.content-section.active{
+    display:block;
+}
+
+/* タイトル */
 .title{
-    font-size:50px;
+    font-size:48px;
     text-align:center;
-    letter-spacing:5px;
+    letter-spacing:6px;
+    font-weight: bold;
 }
 
 .sub{
@@ -127,219 +131,625 @@ header{
     line-height:1.8;
 }
 
-/* ================= POWER ================= */
+/* ポイント */
+.power-box{
+    margin:30px 0;
+    text-align:center;
+    background:#fafafa;
+    padding:20px;
+    border-radius:14px;
+    border:1px solid rgba(0,0,0,0.04);
+}
 
 .power{
-    text-align:center;
-    font-size:38px;
+    font-size:36px;
+    font-weight:bold;
     color:#d10000;
-    margin-top:30px;
+    letter-spacing:2px;
 }
 
-/* ================= SECTIONS ================= */
-
-.section{
-    display:none;
-    margin-top:40px;
+.power-sub{
+    margin-top:8px;
+    font-size:13px;
+    color:#777;
+    letter-spacing:1px;
 }
 
-.active{
-    display:block;
-}
-
-/* ================= RESULT ================= */
-
-#result{
-    min-height:400px;
-    margin-top:40px;
+/* ボタン */
+.buttons{
     display:flex;
     justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    text-align:center;
+    gap:15px;
+    margin-top:35px;
+    flex-wrap:wrap;
 }
 
-/* ================= INVENTORY ================= */
-
-.inventory-item{
-    background:#fff;
-    padding:18px;
+.btn{
+    padding:16px 32px;
+    border:none;
     border-radius:12px;
-    margin:10px 0;
-    border-left:6px solid #999;
-    box-shadow:0 5px 15px rgba(0,0,0,0.05);
+    cursor:pointer;
+    transition:.3s;
+    font-size:15px;
+    font-weight:bold;
+    letter-spacing:2px;
 }
 
-/* ================= FLASH ================= */
+.btn:hover{
+    transform:translateY(-4px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.1);
+}
 
+.normal{ background:#111; color:white; }
+.special{ background:#d10000; color:white; }
+.oracle{ background:#ffcc00; color:#111; }
+
+/* RESULT */
+#result{
+    min-height:450px;
+    margin-top:40px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    transition:1s;
+    border-radius:20px;
+    padding:40px;
+    position:relative;
+    overflow:hidden;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* アニメーション */
+.gacha-animation{
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    border:10px solid rgba(0,0,0,0.08);
+    border-top:10px solid #d10000;
+    animation:spin 1s linear infinite;
+    position:absolute;
+    inset:0;
+    margin:auto;
+}
+
+@keyframes spin{ from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+@keyframes pulse{
+    0%{ transform:scale(0.9); opacity:0.5; }
+    50%{ transform:scale(1.1); opacity:1; }
+    100%{ transform:scale(0.9); opacity:0.5; }
+}
+@keyframes loadingBar{ from{transform:translateX(-100%);} to{transform:translateX(0%);} }
+@keyframes ssrFlash{ from{transform:scale(1);} to{transform:scale(1.05);} }
+@keyframes urFlash{ from{transform:scale(1); filter:brightness(1);} to{transform:scale(1.05); filter:brightness(1.5);} }
+@keyframes shake{
+    0%, 100%{ transform:translate(0,0); }
+    20%{ transform:translate(-2px,2px); }
+    40%{ transform:translate(2px,-2px); }
+    60%{ transform:translate(-1px,-1px); }
+    80%{ transform:translate(2px,1px); }
+}
+
+/* フラッシュ */
 .flash{
     position:fixed;
     inset:0;
     pointer-events:none;
-    animation:flash .5s ease;
-    z-index:9999;
+    animation:flash .6s ease;
+    z-index:999999;
+}
+@keyframes flash{ from{opacity:1;} to{opacity:0;} }
+
+/* 10連 */
+.multi-results{
+    width:100%;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:15px;
+    margin-top:30px;
 }
 
-@keyframes flash{
-    from{opacity:1;}
-    to{opacity:0;}
+.multi-card{
+    background:white;
+    border:1px solid rgba(0,0,0,0.08);
+    padding:20px;
+    border-radius:12px;
+    transition:.3s;
 }
 
+.multi-card:hover{ transform:translateY(-4px); }
+
+/* ステータス */
+.status-box{
+    margin-top:20px;
+    display:flex;
+    flex-direction: column;
+    gap:10px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.status{
+    background:#fafafa;
+    border:1px solid rgba(0,0,0,0.06);
+    padding:12px 20px;
+    border-radius:8px;
+    font-size:13px;
+    letter-spacing:1px;
+    color:#666;
+    display:flex;
+    justify-content:space-between;
+}
+
+/* ゲームセクション */
+.game-select{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+
+.game-card{
+    flex:1;
+    min-width:280px;
+    background:#fafafa;
+    border:1px solid rgba(0,0,0,0.08);
+    padding:25px;
+    border-radius:14px;
+    transition:.3s;
+}
+
+.game-card h3{ margin-bottom:10px; font-size:18px;}
+.game-card p{ color:#666; line-height:1.6; margin-bottom:15px; font-size:14px;}
+
+/* バーゲーム */
+.bar-area{
+    width:100%; height:35px;
+    background:#eee;
+    border-radius:50px;
+    overflow:hidden;
+    position:relative;
+    margin-top:20px;
+}
+
+#successZone{ position:absolute; left:45%; width:10%; height:100%; background:#00aa88; }
+#movingBar{ position:absolute; left:0%; width:6%; height:100%; background:#111; }
+
+/* 反応ゲーム */
+.reaction-box{
+    margin-top:20px;
+    width:100%; height:140px;
+    border-radius:14px;
+    background:#ddd;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:24px;
+    font-weight:bold;
+    cursor:pointer;
+    user-select:none;
+    transition:.2s;
+}
+
+/* 所持 */
+.inventory-item{
+    background:white;
+    margin-bottom:12px;
+    padding:20px;
+    border-radius:12px;
+    border:1px solid rgba(0,0,0,0.08);
+}
+
+/* FOOTER */
+footer{
+    text-align:center;
+    padding:40px;
+    color:#888;
+    font-size:13px;
+    letter-spacing: 2px;
+}
+
+/* レスポンシブ */
+@media(max-width:768px){
+    header{ padding: 0 2%; height:auto; flex-direction: column; padding:10px 0;}
+    body{ padding-top: 130px; }
+    .nav-tabs{ width:100%; justify-content:center; overflow-x:auto; padding:0 10px; }
+    .tab-btn{ padding:8px 12px; font-size:13px; }
+    .title{ font-size:32px; }
+    .gacha-box{ padding:25px 15px; }
+}
 </style>
 </head>
-
 <body>
 
-<!-- ================= HEADER ================= -->
 <header>
-
-<div class="logo">シャー芯<span>ガチャ</span></div>
-
-<div class="buttons">
-
-    <button class="btn normal" onclick="showSection('main')">ガチャ</button>
-    <button class="btn oracle" onclick="showSection('mini')">ミニゲーム</button>
-    <button class="btn special" onclick="showSection('inventory')">所持</button>
-    <button class="btn normal" onclick="showSection('code')">コード</button>
-
-</div>
-
+    <div class="logo">シャー芯<span>ガチャ</span></div>
+    
+    <!-- ナビゲーションメニュー -->
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('gacha')">ガチャ</button>
+        <button class="tab-btn" onclick="switchTab('games')">ミニゲーム</button>
+        <button class="tab-btn" onclick="switchTab('code')">シリアルコード</button>
+        <button class="tab-btn" onclick="switchTab('inventory')">所持シャー芯</button>
+    </div>
 </header>
 
-<!-- ================= MAIN ================= -->
-<div class="main">
-
+<section class="main">
 <div class="gacha-box">
 
-<div class="title">シャー芯ガチャ</div>
+    <!-- 共通：芯ポイント表示 -->
+    <div class="power-box">
+        <div class="power" id="powerText">芯ポイント : 0</div>
+        <div class="power-sub">儀式・試験・お告げによって増加</div>
+    </div>
 
-<div class="sub">
-選ばれしシャー芯を引き当てろ
+    <!-- ========================================== -->
+    <!-- 1. ガチャ画面 -->
+    <!-- ========================================== -->
+    <div id="gacha-section" class="content-section active">
+        <div class="title">シャー芯ガチャ</div>
+        <div class="sub">教祖様によって選ばれし<br>運命のシャー芯を獲得せよ。</div>
+        
+        <div class="buttons">
+            <button class="btn oracle" onclick="dailyOracle()">お告げ (+1芯ポイント)</button>
+            <button class="btn normal" onclick="drawGacha()">単発ガチャ (-10芯pt)</button>
+            <button class="btn special" onclick="draw10()">10連ガチャ (-100芯pt)</button>
+        </div>
+
+        <div id="result">
+            <div style="position:relative; width:200px; height:200px;">
+                <div style="position:absolute; inset:0; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,220,120,0.7) 35%, rgba(255,180,0,0) 70%); animation:pulse 1.4s infinite;"></div>
+                <div class="gacha-animation"></div>
+            </div>
+            <div style="margin-top:30px; font-size:24px; letter-spacing:3px; color:#555;">上のボタンで開始</div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 2. ミニゲーム画面 -->
+    <!-- ========================================== -->
+    <div id="games-section" class="content-section">
+        <div class="title">ゲーム</div>
+        <div class="sub">ミニゲームを遊んで芯ポイントを貯めよう！</div>
+        
+        <div class="game-select">
+            <!-- タイミングゲーム -->
+            <div class="game-card">
+                <h3>タイミングゲーム</h3>
+                <p>動く物体を中央で止めろ。<br>成功で +50芯ポイント。</p>
+                <div class="bar-area">
+                    <div id="successZone"></div>
+                    <div id="movingBar"></div>
+                </div>
+                <div class="buttons" style="margin-top:20px; gap:10px;">
+                    <button class="btn special" style="padding:10px 20px;" onclick="startMiniGame()">開始</button>
+                    <button class="btn normal" style="padding:10px 20px;" onclick="stopMiniGame()">止める</button>
+                </div>
+            </div>
+
+            <!-- 反応速度 -->
+            <div class="game-card">
+                <h3>反応速度ゲーム</h3>
+                <p>赤くなった瞬間に押せ。<br>人類の反射神経が試されるンゴ</p>
+                <div class="buttons" style="margin-top:0; margin-bottom:15px; justify-content:flex-start;">
+                    <button class="btn special" style="padding:10px 20px;" onclick="startReactionGame()">開始</button>
+                </div>
+                <div class="reaction-box" id="reactionBox" onclick="reactionClick()">待機中</div>
+            </div>
+        </div>
+        <div id="miniResult" style="margin-top:30px; text-align:center; font-size:24px; font-weight:bold;"></div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 3. シリアルコード画面 -->
+    <!-- ========================================== -->
+    <div id="code-section" class="content-section">
+        <div class="title">シリアルコード</div>
+        <div class="sub">お手持ちのシリアルコードを入力してください。</div>
+        
+        <div style="margin-top:40px; text-align:center;">
+            <input id="codeInput" type="text" placeholder="コード入力" style="padding:15px 20px; width:min(400px,90%); border:1px solid rgba(0,0,0,0.15); border-radius:12px; font-size:18px; outline:none; text-align:center;">
+            <div style="margin-top:25px;">
+                <button class="btn special" onclick="redeemCode()">コード使用</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 4. 所持一覧 ＆ サーバー情報画面 -->
+    <!-- ========================================== -->
+    <div id="inventory-section" class="content-section">
+        <div class="title">所持シャー芯</div>
+        <div class="sub">あなたが現在持っているシャー芯のリストです。</div>
+        
+        <div id="inventoryList" style="margin-top:30px;"></div>
+
+        <!-- サーバー情報をすっきりとここに集約 -->
+        <hr style="margin:50px 0 30px; border:0; border-top:1px dashed rgba(0,0,0,0.15);">
+        <h3 style="text-align:center; font-size:16px; color:#444; letter-spacing:2px;">システムステータス</h3>
+        <div class="status-box">
+            <div class="status"><span>WEBサーバー</span><span style="color:#00aa88; font-weight:bold;">稼働，正常</span></div>
+            <div class="status"><span>ガチャ</span><span style="color:#00aa88; font-weight:bold;">稼働，正常</span></div>
+            <div class="status"><span>その他異常</span><span style="color:#888;">（異常があった場合ここに示されます）</span></div>
+        </div>
+    </div>
+
 </div>
+</section>
 
-<div class="power" id="powerText">芯ポイント : 0</div>
-
-<!-- ================= MAIN SECTION ================= -->
-<div id="section-main" class="section active">
-
-<div class="buttons" style="justify-content:center; margin-top:20px;">
-
-    <button class="btn oracle" onclick="dailyOracle()">お告げ +1</button>
-    <button class="btn normal" onclick="drawGacha()">単発 -10</button>
-    <button class="btn special" onclick="draw10()">10連 -100</button>
-
-</div>
-
-<div id="result">ここに結果</div>
-
-</div>
-
-<!-- ================= MINI ================= -->
-<div id="section-mini" class="section">
-
-<h2>ミニゲーム</h2>
-
-<div class="buttons">
-    <button class="btn special" onclick="startMiniGame()">開始</button>
-    <button class="btn normal" onclick="stopMiniGame()">停止</button>
-</div>
-
-<div id="miniResult"></div>
-
-</div>
-
-<!-- ================= INVENTORY ================= -->
-<div id="section-inventory" class="section">
-
-<h2>所持シャー芯</h2>
-<div id="inventoryList"></div>
-
-</div>
-
-<!-- ================= CODE ================= -->
-<div id="section-code" class="section">
-
-<h2>シリアルコード</h2>
-
-<input id="codeInput" placeholder="コード入力" style="padding:10px;">
-
-<button class="btn special" onclick="redeemCode()">使用</button>
-
-</div>
-
-</div>
-
-</div>
+<footer>「芯は、あなたを見ている。」</footer>
 
 <script>
-
-/* ================= NAV ================= */
-
-function showSection(name){
-
-    const sections = ["main","mini","inventory","code"];
-
-    sections.forEach(s=>{
-        const el=document.getElementById("section-"+s);
-        el.classList.remove("active");
+// ==========================================
+// タブ切り替えシステム
+// ==========================================
+function switchTab(tabName) {
+    document.querySelectorAll('.content-section').forEach(section => {
+        section.classList.remove('active');
+    });
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
     });
 
-    document.getElementById("section-"+name).classList.add("active");
+    document.getElementById(`${tabName}-section`).classList.add('active');
+    
+    const eventBtn = Array.from(document.querySelectorAll('.tab-btn')).find(btn => btn.getAttribute('onclick').includes(tabName));
+    if(eventBtn) eventBtn.classList.add('active');
+    
+    document.body.style.animation = "";
 }
 
-/* ================= POWER ================= */
-
-function getPower(){
-    return Number(localStorage.getItem("corePower"))||0;
-}
-
-function savePower(v){
-    localStorage.setItem("corePower",v);
-}
-
-function updatePower(){
-    document.getElementById("powerText")
-    .innerText="芯ポイント : "+getPower();
-}
-
-/* ================= FLASH ================= */
-
-function flash(c){
-    const d=document.createElement("div");
-    d.className="flash";
-    d.style.background=c;
-    document.body.appendChild(d);
-    setTimeout(()=>d.remove(),500);
-}
-
-/* ================= SIMPLE GACHA ================= */
-
-const items=[
-{n:"HB",c:"#666"},
-{n:"2B",c:"#0077ff"},
-{n:"SSR芯",c:"#ffcc00"}
+// =========================
+// アイテムデータ
+// =========================
+const items = [
+    { name:"HB", rarity:"R", chance:50, color:"#666", desc:"最も一般的なシャー芯。", type:"王道シャー芯" },
+    { name:"2B", rarity:"SR", chance:28, color:"#0077ff", desc:"濃さに特化したシャー芯。", type:"濃密シャー芯" },
+    { name:"0.3mm", rarity:"SR", chance:14, color:"#00aa88", desc:"扱える者は少ない。", type:"精密シャー芯" },
+    { name:"赤芯", rarity:"SSR", chance:6, color:"#ffbb00", desc:"教祖様が愛した伝説級シャー芯。（知らんけど）", type:"神聖シャー芯" },
+    { name:"0.0mm", rarity:"UR", chance:1.8, color:"#7a00ff", desc:"存在しないはずのシャー芯。（１８禁！？ｗ）", type:"禁断シャー芯" },
+    { name:"ルンべの遺芯", rarity:"LR", chance:0.2, color:"#ff0000", desc:"ルンべの遺産。", type:"終焉シャー芯" }
 ];
 
-function drawGacha(){
+const loadingMessages = ["ＳＳＲでるといいね！ｗ"];
 
-    let p=getPower();
-    if(p<10) return alert("不足");
+// =========================
+// セーブ＆ロード
+// =========================
+function getPower(){ return Number(localStorage.getItem("corePower")) || 0; }
+function savePower(power){ localStorage.setItem("corePower", power); }
+function updatePower(){ document.getElementById("powerText").innerHTML = `芯ポイント : ${getPower()}`; }
+function getInventory(){ return JSON.parse(localStorage.getItem("leadInventory")) || []; }
+function saveInventory(data){ localStorage.setItem("leadInventory", JSON.stringify(data)); }
 
-    savePower(p-10);
-    updatePower();
+// =========================
+// 所持表示
+// =========================
+function showInventory(){
+    const inventory = getInventory();
+    let grouped = {};
+    inventory.forEach(item=>{
+        const key = item.name;
+        if(!grouped[key]){ grouped[key] = { ...item, count:0 }; }
+        grouped[key].count++;
+    });
 
-    const item=items[Math.floor(Math.random()*items.length)];
+    let html = "";
+    Object.values(grouped).forEach(item=>{
+        html += `
+        <div class="inventory-item" style="border-left:6px solid ${item.color};">
+            <div style="color:${item.color}; font-weight:bold; letter-spacing:4px;">${item.rarity}</div>
+            <div style="font-size:32px; margin-top:10px; color:${item.color}; font-weight:bold;">${item.name}</div>
+            <div style="margin-top:10px; color:#666;">${item.type}</div>
+            <div style="margin-top:5px; color:#888; font-size:14px;">${item.desc}</div>
+            <div style="margin-top:15px;">所持数 × ${item.count}</div>
+        </div>`;
+    });
 
-    document.getElementById("result").innerHTML=
-    `<div style="color:${item.c};font-size:50px">${item.n}</div>`;
+    if(html === ""){ html = `<div class="inventory-item">まだシャー芯は存在しません。</div>`; }
+    document.getElementById("inventoryList").innerHTML = html;
 }
 
-/* ================= INIT ================= */
+// =========================
+// ガチャ抽選・演出
+// =========================
+function randomItem(){
+    let random = Math.random() * 100;
+    let total = 0;
+    for(const item of items){
+        total += item.chance;
+        if(random <= total){ return item; }
+    }
+}
 
+function startAnimation(){
+    const randomMessage = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
+    document.getElementById("result").style.background = "#fff";
+    document.getElementById("result").innerHTML = `
+    <div style="position:relative; width:260px; height:260px;">
+        <div style="position:absolute; inset:0; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,220,120,0.7) 35%, rgba(255,180,0,0) 70%); animation:pulse 1.4s infinite;"></div>
+        <div class="gacha-animation"></div>
+    </div>
+    <div style="margin-top:45px; font-size:34px; letter-spacing:5px; font-weight:bold; animation:ssrFlash .8s infinite alternate;">ガチャ中...</div>
+    <div style="margin-top:20px; color:#666; letter-spacing:3px; font-size:16px;">${randomMessage}</div>
+    <div style="margin-top:30px; width:320px; height:10px; background:#eee; border-radius:999px; overflow:hidden;">
+        <div style="width:100%; height:100%; background:linear-gradient(90deg, #ffcc00, #ff8800, #ffcc00); animation:loadingBar 2s linear forwards;"></div>
+    </div>`;
+}
+
+function drawGacha(){
+    let power = getPower();
+    if(power < 10){ alert("芯ポイントが不足しています"); return; }
+    savePower(power - 10); updatePower(); startAnimation();
+    setTimeout(()=>{
+        const item = randomItem();
+        let inventory = getInventory();
+        inventory.push(item); saveInventory(inventory);
+        displayResult(item); showInventory();
+    }, 2000);
+}
+
+function draw10(){
+    let power = getPower();
+    if(power < 100){ alert("芯ポイントが不足しています"); return; }
+    savePower(power - 100); updatePower(); startAnimation();
+    setTimeout(()=>{
+        let inventory = getInventory();
+        let results = [];
+        for(let i=0;i<10;i++){
+            const item = randomItem();
+            inventory.push(item); results.push(item);
+        }
+        saveInventory(inventory);
+        let html = `<div style="font-size:42px; margin-bottom:35px; letter-spacing:5px;">10連結果</div><div class="multi-results">`;
+        results.forEach(item=>{
+            html += `
+            <div class="multi-card" style="border-top:6px solid ${item.color};">
+                <div style="color:${item.color}; font-weight:bold; letter-spacing:4px;">${item.rarity}</div>
+                <div style="font-size:28px; margin-top:15px; color:${item.color}; font-weight:bold;">${item.name}</div>
+            </div>`;
+        });
+        html += `</div>`;
+        document.getElementById("result").innerHTML = html;
+        showInventory();
+    }, 2500);
+}
+
+function displayResult(item){
+    let effect = ""; let bg = "#fff";
+    document.body.style.animation = "";
+    if(item.rarity === "SSR"){
+        bg = "radial-gradient(circle, rgba(255,220,120,1) 0%, rgba(255,255,255,1) 70%)";
+        effect = `animation:ssrFlash .7s infinite alternate; text-shadow:0 0 25px ${item.color};`;
+        flash("#ffe066");
+    }
+    if(item.rarity === "UR"){
+        bg = "radial-gradient(circle, rgba(122,0,255,0.95) 0%, rgba(10,0,30,1) 85%)";
+        effect = `animation:urFlash .4s infinite alternate; text-shadow:0 0 35px ${item.color};`;
+        flash("#7a00ff");
+    }
+    if(item.rarity === "LR"){
+        bg = "radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(30,0,0,1) 70%, rgba(120,0,0,1) 100%)";
+        effect = `animation:urFlash .2s infinite alternate; text-shadow:0 0 45px ${item.color}; filter:brightness(2);`;
+        flash("#000");
+        document.body.style.animation = "shake .15s infinite";
+    }
+
+    document.getElementById("result").style.background = bg;
+    document.getElementById("result").innerHTML = `
+    <div style="font-size:26px; letter-spacing:10px; color:${item.color}; ${effect}">${item.rarity}</div>
+    <div style="margin-top:20px; font-size:88px; color:${item.color}; font-weight:bold; ${effect}">${item.name}</div>
+    <div style="margin-top:30px; color:#555; font-size:18px; line-height:2;">${item.desc}</div>
+    <div style="margin-top:35px; font-size:30px; color:${item.color}; font-weight:bold;">${item.type}</div>
+    <div style="margin-top:20px; color:#777;">排出率 ${item.chance}%</div>`;
+}
+
+function flash(color){
+    const div = document.createElement("div");
+    div.className = "flash"; div.style.background = color;
+    document.body.appendChild(div);
+    setTimeout(()=>{ div.remove(); }, 600);
+}
+
+// =========================
+// コードシステム
+// =========================
+const giftCodes = {
+    "SHIN2026":{ reward:500, message:"正式加入記念" },
+    "HBLOVE":{ reward:100, message:"HB信仰ボーナス" },
+    "LUNBE":{ reward:1000, message:"教祖様からの祝福" }
+};
+function getUsedCodes(){ return JSON.parse(localStorage.getItem("usedCodes")) || []; }
+function saveUsedCodes(data){ localStorage.setItem("usedCodes", JSON.stringify(data)); }
+
+function redeemCode(){
+    const input = document.getElementById("codeInput");
+    const code = input.value.trim().toUpperCase();
+    const usedCodes = getUsedCodes();
+
+    if(!giftCodes[code]){ alert("存在しないコードです"); return; }
+    if(usedCodes.includes(code)){ alert("既に使用済みです"); return; }
+
+    const reward = giftCodes[code].reward;
+    let power = getPower();
+    power += reward; savePower(power); updatePower();
+
+    usedCodes.push(code); saveUsedCodes(usedCodes);
+    flash("#00ff88");
+    alert(`${giftCodes[code].message}\n\n+${reward} 芯ポイント`);
+    input.value = "";
+}
+
+// =========================
+// お告げ
+// =========================
+const oracleTexts = ["芯を恐れるな", "HBもまた救いである", "教祖様は見ている", "折れた芯にも意味はある", "0.3mmを信じろ"];
+function dailyOracle(){
+    let power = getPower(); power += 1; savePower(power); updatePower();
+    const text = oracleTexts[Math.floor(Math.random() * oracleTexts.length)];
+    alert(`『${text}』\n\n+1 芯ポイント`);
+}
+
+// =========================
+// タイミングゲーム
+// =========================
+let miniInterval; let position = 0; let direction = 1; let playing = false;
+function startMiniGame(){
+    if(playing) return;
+    playing = true;
+    miniInterval = setInterval(()=>{
+        position += direction * 2;
+        if(position >= 94){ direction = -1; }
+        if(position <= 0){ direction = 1; }
+        document.getElementById("movingBar").style.left = position + "%";
+    }, 10);
+}
+
+// =========================
+// 反応ゲーム
+// =========================
+function stopMiniGame(){
+    if(!playing) return;
+    clearInterval(miniInterval); playing = false;
+    if(position >= 44 && position <= 54){
+        let power = getPower(); power += 50; savePower(power); updatePower();
+        document.getElementById("miniResult").innerHTML = `<div style="color:#00aa88;">PERFECT +50芯ポイント</div>`;
+    }else{
+        document.getElementById("miniResult").innerHTML = `<div style="color:#d10000;">芯が折れた...</div>`;
+    }
+}
+
+let reactionStart = 0; let reactionReady = false;
+function startReactionGame(){
+    const box = document.getElementById("reactionBox");
+    reactionReady = false; box.style.background = "#ddd"; box.innerHTML = "待て...";
+    const delay = Math.random() * 3000 + 2000;
+    setTimeout(()=>{
+        reactionReady = true; reactionStart = Date.now();
+        box.style.background = "#ff0000"; box.style.color = "white"; box.innerHTML = "押せ！！！！";
+    }, delay);
+}
+
+function reactionClick(){
+    const box = document.getElementById("reactionBox");
+    if(!reactionReady) return;
+    const time = (Date.now() - reactionStart) / 1000;
+    reactionReady = false; box.style.background = "#00aa88"; box.innerHTML = `${time.toFixed(3)} 秒`;
+
+    let reward = 0;
+    if(time <= 0.15){ reward = 100; }
+    else if(time <= 0.25){ reward = 60; }
+    else if(time <= 0.4){ reward = 30; }
+
+    let power = getPower(); power += reward; savePower(power); updatePower();
+    document.getElementById("miniResult").innerHTML = `<div>+${reward} 芯ポイント</div>`;
+}
+
+// 初期化
 updatePower();
-showSection("main");
-
+showInventory();
 </script>
-
 </body>
 </html>
