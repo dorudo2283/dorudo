@@ -3,299 +3,396 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>シャー芯ガチャ</title>
+<title>シャー芯ガチャ | 日本シャー芯協会</title>
 
 <style>
-
-/* =========================
-  基本
-========================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Yu Gothic","Meiryo",sans-serif;
+}
 
 body{
-    margin:0;
-    font-family:"Yu Gothic","Meiryo",sans-serif;
-    background:#f5f5f5;
+    background:#0f0f14;
+    color:#fff;
+    overflow-x:hidden;
+}
+
+/* 背景 */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+    radial-gradient(circle at 20% 20%, rgba(255,200,0,0.08), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255,0,0,0.08), transparent 45%);
+    z-index:-1;
+}
+
+/* HEADER */
+header{
+    position:fixed;
+    top:0;
+    width:100%;
+    padding:20px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    backdrop-filter:blur(10px);
+    background:rgba(0,0,0,0.5);
+    border-bottom:1px solid rgba(255,255,255,0.1);
+    z-index:999;
+}
+
+.logo{
+    font-size:30px;
+    letter-spacing:4px;
+    font-weight:bold;
+}
+.logo span{color:#ff2d2d;}
+.back{color:#aaa;text-decoration:none;}
+
+/* BOX */
+.main{
+    padding:140px 20px 80px;
+    display:flex;
+    justify-content:center;
+}
+
+.gacha-box{
+    width:min(1100px,100%);
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:22px;
+    padding:50px;
+    backdrop-filter:blur(12px);
+}
+
+/* TITLE */
+.title{
+    font-size:72px;
+    text-align:center;
+    letter-spacing:6px;
+}
+.sub{
+    text-align:center;
+    margin-top:10px;
+    color:#aaa;
     font-size:18px;
 }
 
-/* =========================
-  文字強化（重要）
-========================= */
-
-.title{
-    font-size:82px;
-    text-align:center;
-    letter-spacing:8px;
-    font-weight:bold;
-}
-
-.sub{
-    font-size:20px;
-    text-align:center;
-    color:#666;
-}
-
+/* POWER */
 .power{
-    font-size:58px;
-    font-weight:bold;
-    color:#d10000;
     text-align:center;
+    font-size:44px;
+    margin-top:30px;
+    color:#ff3b3b;
 }
 
-/* ボタン */
+/* BUTTON */
+.buttons{
+    display:flex;
+    gap:15px;
+    justify-content:center;
+    margin-top:40px;
+    flex-wrap:wrap;
+}
+
 .btn{
-    font-size:20px;
-    padding:22px 48px;
-    border-radius:16px;
+    padding:18px 35px;
     border:none;
+    border-radius:12px;
     cursor:pointer;
+    font-size:18px;
+    transition:.2s;
+}
+.btn:hover{transform:scale(1.05);}
+
+.normal{background:#222;color:#fff;}
+.special{background:#ff2d2d;color:#fff;}
+.oracle{background:#ffcc00;color:#000;}
+
+/* RESULT */
+#result{
+    margin-top:50px;
+    min-height:420px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    border-radius:18px;
+    padding:40px;
+    position:relative;
 }
 
-/* =========================
-  ガチャ演出
-========================= */
-
-.gacha-animation{
-    width:240px;
-    height:240px;
-    border-radius:50%;
-    border:12px solid rgba(0,0,0,0.08);
-    border-top:12px solid #d10000;
-    animation:spin 1s linear infinite;
-    position:absolute;
-    inset:0;
-    margin:auto;
-}
-
+/* ANIM */
 @keyframes spin{
-    from{transform:rotate(0deg);}
-    to{transform:rotate(360deg);}
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(360deg);}
 }
 
-@keyframes pulse{
-    0%{transform:scale(0.9);opacity:0.5;}
-    50%{transform:scale(1.2);opacity:1;}
-    100%{transform:scale(0.9);opacity:0.5;}
+.loader{
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    border:10px solid rgba(255,255,255,0.1);
+    border-top:10px solid #ff2d2d;
+    animation:spin 1s linear infinite;
 }
 
-/* フラッシュ */
+/* FLASH */
 .flash{
     position:fixed;
     inset:0;
+    animation:flash .5s ease;
     pointer-events:none;
-    animation:flash .6s ease;
 }
-
 @keyframes flash{
     from{opacity:1;}
     to{opacity:0;}
 }
 
-/* 揺れ */
-@keyframes shake{
-    0%{transform:translate(2px,2px);}
-    50%{transform:translate(-2px,-2px);}
-    100%{transform:translate(1px,-1px);}
-}
-
-.glitch{
-    animation:shake .15s infinite;
-}
-
-/* ロードバー */
-.bar{
-    width:80%;
-    height:14px;
-    background:linear-gradient(90deg,#ffcc00,#ff3300,#ffcc00);
-    border-radius:999px;
-    animation:load 2.2s ease forwards;
-}
-
-@keyframes load{
-    from{width:0%;}
-    to{width:100%;}
-}
-
-/* =========================
-  結果表示
-========================= */
-
-.big-name{
-    font-size:120px;
+/* BIG TEXT */
+.big{
+    font-size:110px;
     font-weight:bold;
-    text-align:center;
 }
 
 .rarity{
-    font-size:40px;
-    text-align:center;
-    letter-spacing:10px;
-}
-
-.type{
-    font-size:26px;
-    text-align:center;
+    font-size:28px;
+    letter-spacing:8px;
+    opacity:0.8;
 }
 
 .desc{
-    font-size:22px;
-    text-align:center;
-    color:#666;
-    line-height:2;
+    margin-top:20px;
+    color:#bbb;
+    font-size:18px;
 }
 
-</style>
+/* MINI GAME */
+.bar{
+    width:100%;
+    height:40px;
+    background:#222;
+    border-radius:50px;
+    position:relative;
+    margin-top:30px;
+}
 
+.zone{
+    position:absolute;
+    left:45%;
+    width:10%;
+    height:100%;
+    background:#00ff99;
+}
+
+.pointer{
+    position:absolute;
+    width:6%;
+    height:100%;
+    background:#fff;
+    left:0%;
+}
+
+.reaction{
+    margin-top:20px;
+    height:160px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:34px;
+    background:#222;
+    border-radius:16px;
+    cursor:pointer;
+}
+</style>
 </head>
 
 <body>
 
+<header>
+<div class="logo">シャー芯<span>ガチャ</span></div>
+<a class="back" href="#">TOP</a>
+</header>
+
+<div class="main">
+<div class="gacha-box">
+
 <div class="title">シャー芯ガチャ</div>
-<div class="sub">運命の芯を引け</div>
+<div class="sub">運命は鉛筆の中にある</div>
 
-<div class="power" id="powerText">芯ポイント: 0</div>
+<div class="power" id="power">芯ポイント: 0</div>
 
-<div style="text-align:center;margin:30px;">
-<button class="btn" onclick="drawGacha()">単発</button>
-<button class="btn" onclick="draw10()">10連</button>
+<div class="buttons">
+<button class="btn oracle" onclick="addPower()">お告げ +1</button>
+<button class="btn normal" onclick="draw()">単発 -10</button>
+<button class="btn special" onclick="draw10()">10連 -100</button>
 </div>
 
-<div id="result" style="min-height:500px;text-align:center;position:relative;"></div>
+<div id="result">
+<div class="loader"></div>
+</div>
+
+<!-- ミニゲーム -->
+<div style="margin-top:60px;">
+
+<h2>ミニゲーム</h2>
+
+<div class="bar">
+<div class="zone"></div>
+<div class="pointer" id="ptr"></div>
+</div>
+
+<div class="buttons">
+<button class="btn special" onclick="startBar()">開始</button>
+<button class="btn normal" onclick="stopBar()">停止</button>
+</div>
+
+<div class="reaction" id="react" onclick="react()">待機中</div>
+
+</div>
+
+</div>
+</div>
 
 <script>
 
-/* =========================
-  データ
-========================= */
+let power = 0;
+let ptr = 0;
+let dir = 1;
+let interval;
+let running = false;
 
-const items = [
-{ name:"HB", rarity:"R", chance:60, color:"#666", desc:"普通", type:"王道" },
-{ name:"2B", rarity:"SR", chance:25, color:"#0077ff", desc:"濃い", type:"濃密" },
-{ name:"0.3mm", rarity:"SSR", chance:10, color:"#ffcc00", desc:"精密", type:"レア" },
-{ name:"赤芯", rarity:"UR", chance:4, color:"#7a00ff", desc:"伝説", type:"神域" },
-{ name:"ルンべの遺芯", rarity:"LR", chance:1, color:"#ff0000", desc:"終焉", type:"禁断" }
+function update(){
+document.getElementById("power").innerText = "芯ポイント: " + power;
+}
+
+function addPower(){
+power++;
+update();
+flash();
+}
+
+function flash(){
+const d = document.createElement("div");
+d.className="flash";
+d.style.background="white";
+document.body.appendChild(d);
+setTimeout(()=>d.remove(),500);
+}
+
+const items=[
+{name:"HB",rarity:"R",chance:60,color:"#aaa"},
+{name:"2B",rarity:"SR",chance:25,color:"#4af"},
+{name:"SSR芯",rarity:"SSR",chance:12,color:"#ffcc00"},
+{name:"UR芯",rarity:"UR",chance:3,color:"#ff2d2d"}
 ];
 
-/* =========================
-  ガチャ
-========================= */
-
-function randomItem(){
-    let r = Math.random()*100;
-    let sum = 0;
-
-    for(const i of items){
-        sum += i.chance;
-        if(r <= sum) return i;
-    }
+function random(){
+let r=Math.random()*100;
+let t=0;
+for(let i of items){
+t+=i.chance;
+if(r<t)return i;
+}
 }
 
-/* =========================
-  演出
-========================= */
-
-function startAnimation(){
-
-    document.getElementById("result").innerHTML = `
-        <div style="position:relative;height:300px;">
-            <div class="gacha-animation"></div>
-        </div>
-        <div style="font-size:48px;margin-top:40px;">
-            ガチャ中...
-        </div>
-        <div class="bar" style="margin:auto;margin-top:30px;"></div>
-    `;
+function anim(){
+document.getElementById("result").innerHTML=`
+<div class="loader"></div>
+<div style="margin-top:20px;font-size:28px;">ガチャ中...</div>
+`;
 }
 
-/* =========================
-  結果
-========================= */
+function draw(){
+if(power<10)return;
+power-=10;
+update();
+anim();
 
-function displayResult(item){
-
-    let bg = "#fff";
-    let effect = "";
-
-    if(item.rarity==="SSR"){
-        bg="radial-gradient(circle,#fff3b0,#ffb703)";
-    }
-
-    if(item.rarity==="UR"){
-        bg="radial-gradient(circle,#7a00ff,#1a0033)";
-        document.body.classList.add("glitch");
-        setTimeout(()=>document.body.classList.remove("glitch"),500);
-    }
-
-    if(item.rarity==="LR"){
-        bg="radial-gradient(circle,#000,#400,#900)";
-        document.body.classList.add("glitch");
-        setTimeout(()=>document.body.classList.remove("glitch"),700);
-    }
-
-    document.getElementById("result").style.background = bg;
-
-    document.getElementById("result").innerHTML = `
-
-        <div class="rarity" style="color:${item.color}">
-            ${item.rarity}
-        </div>
-
-        <div class="big-name" style="color:${item.color}">
-            ${item.name}
-        </div>
-
-        <div class="type">${item.type}</div>
-
-        <div class="desc">${item.desc}</div>
-
-        <div style="margin-top:20px;">
-            排出率 ${item.chance}%
-        </div>
-
-    `;
+setTimeout(()=>{
+let item=random();
+show(item);
+},1500);
 }
-
-/* =========================
-  単発
-========================= */
-
-function drawGacha(){
-
-    startAnimation();
-
-    setTimeout(()=>{
-        const item = randomItem();
-        displayResult(item);
-    },2000);
-}
-
-/* =========================
-  10連
-========================= */
 
 function draw10(){
+if(power<100)return;
+power-=100;
+update();
+anim();
 
-    startAnimation();
-
-    setTimeout(()=>{
-
-        let html = "";
-
-        for(let i=0;i<10;i++){
-            const item = randomItem();
-
-            html += `
-            <div style="margin:10px;padding:10px;border:1px solid #ddd;">
-                <div style="color:${item.color};font-size:22px;">
-                    ${item.rarity} ${item.name}
-                </div>
-            </div>`;
-        }
-
-        document.getElementById("result").innerHTML = html;
-
-    },2200);
+setTimeout(()=>{
+let html="";
+for(let i=0;i<10;i++){
+let item=random();
+html+=`<div style="margin:10px;font-size:20px;color:${item.color}">
+${item.rarity} ${item.name}</div>`;
 }
+document.getElementById("result").innerHTML=html;
+},1500);
+}
+
+function show(item){
+document.getElementById("result").innerHTML=`
+<div class="rarity">${item.rarity}</div>
+<div class="big" style="color:${item.color}">${item.name}</div>
+<div class="desc">シャー芯の覚醒個体</div>
+`;
+}
+
+/* bar */
+function startBar(){
+if(running)return;
+running=true;
+interval=setInterval(()=>{
+ptr+=dir*2;
+if(ptr>94||ptr<0)dir*=-1;
+document.getElementById("ptr").style.left=ptr+"%";
+},10);
+}
+
+function stopBar(){
+running=false;
+clearInterval(interval);
+if(ptr>44&&ptr<54){
+power+=50;
+update();
+alert("PERFECT +50");
+}else{
+alert("MISS");
+}
+}
+
+/* reaction */
+let ready=false;
+let t0=0;
+
+function react(){
+if(!ready)return;
+let dt=(Date.now()-t0)/1000;
+ready=false;
+
+if(dt<0.2)power+=100;
+else if(dt<0.35)power+=50;
+
+update();
+document.getElementById("react").innerText=dt.toFixed(3)+"s";
+}
+
+setInterval(()=>{
+if(Math.random()<0.01){
+ready=true;
+t0=Date.now();
+document.getElementById("react").innerText="押せ";
+}
+},100);
+
+update();
 
 </script>
 
