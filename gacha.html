@@ -412,7 +412,6 @@ footer{
 </head>
 <body>
 
-<!-- 本家リスペクト・ローディング画面演出用 -->
 <div id="loading-screen" style="position:fixed; inset:0; background:#f5f5f5; display:none; justify-content:center; align-items:center; z-index:999999;">
     <div style="font-size:28px; letter-spacing:5px; color:#111;" id="loadingText">日本シャー芯協会 接続中...</div>
 </div>
@@ -420,7 +419,6 @@ footer{
 <header>
     <div class="logo">日本<span>シャー芯</span>協会</div>
     
-    <!-- ナびゲーションタブ -->
     <nav>
         <button class="nav-btn active" id="tab-gacha" onclick="switchTab('gacha')">ガチャ</button>
         <button class="nav-btn" id="tab-games" onclick="switchTab('games')">ミニゲーム</button>
@@ -433,15 +431,11 @@ footer{
 <section class="main">
 <div class="gacha-box">
 
-    <!-- 共通：芯ポイント表示 -->
     <div class="power-box">
         <div class="power" id="powerText">芯ポイント : 0</div>
         <div class="power-sub">儀式・試験・お告げによって増加する通貨ンゴ</div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- 1. ガチャ画面 -->
-    <!-- ========================================== -->
     <div id="gacha-section" class="content-section active">
         <div class="title">シャー芯ガチャ</div>
         <div class="sub">教祖ルンべ様によって選ばれし運命の黒鉛を摂取せよ。</div>
@@ -461,15 +455,11 @@ footer{
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- 2. ミニゲーム画面 -->
-    <!-- ========================================== -->
     <div id="games-section" class="content-section">
         <div class="title">協会ゲーム</div>
         <div class="sub">ミニゲームを修め、黒鉛を執行するための芯ポイントを貯めよう。</div>
         
         <div class="game-select">
-            <!-- タイミングゲーム -->
             <div class="game-card">
                 <h3>タイミング摂取</h3>
                 <p>動く黒鉛を中央のジャストゾーンで止めろ。<br>成功で +50芯ポイント。</p>
@@ -483,7 +473,6 @@ footer{
                 </div>
             </div>
 
-            <!-- 反応速度 -->
             <div class="game-card">
                 <h3>反射神経試験</h3>
                 <p>画面が真っ赤になった瞬間に摂取（クリック）せよ。<br>人類の限界に挑むンゴ。</p>
@@ -496,9 +485,6 @@ footer{
         <div id="miniResult" style="margin-top:40px; text-align:center; font-size:24px; font-weight:bold; letter-spacing: 2px;"></div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- 3. シリアルコード画面 -->
-    <!-- ========================================== -->
     <div id="code-section" class="content-section">
         <div class="title">暗号入力</div>
         <div class="sub">お手持ちのシリアルコードを入力してください。</div>
@@ -511,9 +497,6 @@ footer{
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- 4. 所持一覧画面 -->
-    <!-- ========================================== -->
     <div id="inventory-section" class="content-section">
         <div class="title">所持シャー芯</div>
         <div class="sub">あなたがこれまでの儀式で獲得したシャー芯のアーカイブです。</div>
@@ -560,10 +543,10 @@ function switchTab(tabName) {
 // ガチャデータ（本家ローカライズ）
 // =========================
 const items = [
-    { name:"HB 0.5mm", rarity:"R", chance:50, color:#666, desc:"最も一般的な救い。すべてはここから始まる。", type:"王道シャー芯" },
+    { name:"HB 0.5mm", rarity:"R", chance:50, color:"#666", desc:"最も一般的な救い。すべてはここから始まる。", type:"王道シャー芯" },
     { name:"2B 0.3mm", rarity:"SR", chance:28, color:"#0077ff", desc:"濃さと繊細さを兼ね備えた、黒鉛執行官向けの芯。", type:"精密濃密芯" },
     { name:"0.5mm 赤芯", rarity:"SSR", chance:14, color:"#a30000", desc:"教祖ルンべ様がかつて愛したとされる伝説級の赤。（知らんけど）", type:"神聖カラー芯" },
-    { name:"0.0mm 概念芯", rarity:"UR", chance:6, color:"#7a00ff", desc:"存在しないはずの太さ。これを持てる者はすでに人間ではないｗ", type:"禁断の黒鉛" },
+    { name:"0.0mm 概念芯", rarity:"UR", chance:6, color:"#7a00ff", desc:"存在しないはずの太さ。これを持せる者はすでに人間ではないｗ", type:"禁断の黒鉛" },
     { name:"ルンべの遺芯", rarity:"LR", chance:2, color:"#ff0000", desc:"初代芯覚醒者の遺産。摂取すると世界線の理が見えるらしい。", type:"至高神の遺物" }
 ];
 
